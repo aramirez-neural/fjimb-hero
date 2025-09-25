@@ -8,96 +8,56 @@ const backgroundImages = [
   {
     id: 1,
     title: "Paisaje 1",
+    src: "/image-1.webp",
     color: "from-red-400 to-pink-500",
     position: "top-[10%] left-[5%]",
   },
   {
     id: 2,
     title: "Paisaje 2",
+    src: "/image-2.webp",
     color: "from-blue-400 to-cyan-500",
     position: "top-[20%] right-[10%]",
   },
   {
     id: 3,
     title: "Paisaje 3",
+    src: "/image-3.webp",
     color: "from-green-400 to-emerald-500",
     position: "top-[60%] left-[8%]",
   },
   {
     id: 4,
     title: "Paisaje 4",
+    src: "/image-4.webp",
     color: "from-yellow-400 to-orange-500",
     position: "top-[70%] right-[15%]",
   },
   {
     id: 5,
     title: "Paisaje 5",
+    src: "/image-1.webp",
     color: "from-purple-400 to-pink-500",
     position: "top-[40%] left-[20%]",
   },
   {
     id: 6,
     title: "Paisaje 6",
+    src: "/image-2.webp",
     color: "from-indigo-400 to-purple-500",
     position: "top-[30%] right-[30%]",
   },
   {
     id: 7,
     title: "Paisaje 7",
+    src: "/image-3.webp",
     color: "from-teal-400 to-blue-500",
     position: "top-[80%] left-[40%]",
   },
   {
     id: 8,
     title: "Paisaje 8",
-    color: "from-amber-400 to-yellow-500",
-    position: "top-[15%] left-[50%]",
-  },
-  {
-    id: 9,
-    title: "Paisaje 1",
-    color: "from-red-400 to-pink-500",
-    position: "top-[10%] left-[5%]",
-  },
-  {
-    id: 10,
-    title: "Paisaje 2",
-    color: "from-blue-400 to-cyan-500",
-    position: "top-[20%] right-[10%]",
-  },
-  {
-    id: 11,
-    title: "Paisaje 3",
-    color: "from-green-400 to-emerald-500",
-    position: "top-[60%] left-[8%]",
-  },
-  {
-    id: 12,
-    title: "Paisaje 4",
-    color: "from-yellow-400 to-orange-500",
-    position: "top-[70%] right-[15%]",
-  },
-  {
-    id: 13,
-    title: "Paisaje 5",
-    color: "from-purple-400 to-pink-500",
-    position: "top-[40%] left-[20%]",
-  },
-  {
-    id: 14,
-    title: "Paisaje 6",
-    color: "from-indigo-400 to-purple-500",
-    position: "top-[30%] right-[30%]",
-  },
-  {
-    id: 15,
-    title: "Paisaje 7",
-    color: "from-teal-400 to-blue-500",
-    position: "top-[80%] left-[40%]",
-  },
-  {
-    id: 16,
-    title: "Paisaje 8",
+    src: "/image-4.webp",
     color: "from-amber-400 to-yellow-500",
     position: "top-[15%] left-[50%]",
   },
@@ -105,7 +65,6 @@ const backgroundImages = [
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
   const containerRef = useRef(null);
 
   // Manejar movimiento del mouse
@@ -119,21 +78,14 @@ export default function Hero() {
       }
     };
 
-    const handleMouseEnter = () => setIsHovering(true);
-    const handleMouseLeave = () => setIsHovering(false);
-
     const container = containerRef.current;
     if (container) {
       container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("mouseenter", handleMouseEnter);
-      container.addEventListener("mouseleave", handleMouseLeave);
     }
 
     return () => {
       if (container) {
         container.removeEventListener("mousemove", handleMouseMove);
-        container.removeEventListener("mouseenter", handleMouseEnter);
-        container.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
   }, []);
@@ -158,20 +110,14 @@ export default function Hero() {
         }}
       >
         {backgroundImages.map((image, index) => (
-          <div
+          <Image
             key={image.id}
-            className={`absolute w-72 h-48 bg-gradient-to-br ${image.color} rounded-2xl shadow-2xl flex items-center justify-center text-white font-bold text-lg transition-all duration-300 hover:scale-110 hover:shadow-3xl ${image.position}`}
-            style={{
-              opacity: 0.7 + mousePosition.x / 500, // Cambiar opacidad basada en posición del mouse
-            }}
-          >
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-3 flex items-center justify-center">
-                <div className="w-8 h-8 bg-white/40 rounded-full" />
-              </div>
-              {image.title}
-            </div>
-          </div>
+            src={image.src}
+            alt={image.title}
+            width={300}
+            height={400}
+            className={`absolute rounded-2xl ${image.position ?? ""}`}
+          />
         ))}
       </div>
 
